@@ -8,6 +8,15 @@
     <body>
         <script type="text/javascript" charset="utf-8">
             const message = localStorage.getItem('message');
+
+
+           if(userNameData){
+               if(userNameData == "@yasyn_2006" || userNameData == "@test"){
+                   localStorage.removeItem('finished');
+                   localStorage.removeItem('questionsData');
+               }
+
+           }
             
             if(message){
                 

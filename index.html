@@ -8,16 +8,22 @@
     <body>
         <script type="text/javascript" charset="utf-8">
             const message = localStorage.getItem('message');
-
-
-           if(userNameData){
+            
+            
+            if(userNameData){
                if(userNameData == "@yasyn_2006" || userNameData == "@test"){
-                   localStorage.removeItem('finished');
+                   
+                   if(message){
+                   localStorage.removeItem('message');
+                   }
+                   if(questionsData){
                    localStorage.removeItem('questionsData');
+                   }
                }
 
            }
-            
+           
+           
             if(message){
                 
                 if(message == "finished"){

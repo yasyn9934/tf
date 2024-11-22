@@ -1,0 +1,39 @@
+            
+            
+            
+            
+            .question {
+            background-color: #40A2AA;
+            color: white;
+            padding: 5.2%;
+            border: 0.3vw solid black;
+            font-size: 1.3em;
+            border-radius: 0px;
+            
+        }
+
+        .answer {
+            background-color: #40C2BB;
+            color: #EEEEEE;
+            padding: 4%;
+            border-radius: 4%;
+            margin: 2%;
+            margin-left: 10%;
+            width: 80%;
+            font-size: 1em;
+            border: 0.3vw solid black;
+            display: inline-block;
+            
+        }
+
+        .answer:hover {
+            background-color: #17B5D7;
+            box-shadow: 0vw 0vw 2vw black;
+            font-size: 1.1em;
+            text-shadow: 0vw 0vw 1vw black;
+        }
+        
+        
+            
+            
+            

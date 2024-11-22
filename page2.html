@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        
+        <link rel="stylesheet" href="public.css">
+         
+        <link rel="stylesheet" href="question-style.css">
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        
+        <meta name="viewport" content="width=500, user-scalable=no">
+        
+        <title>
+            صفحة الأسئلة
+        </title>
+        
+        <style>
+        
+            body {
+               height: 100vh;
+               font-size: 4vw;
+            }
+            
+            
+            #answers-bord {
+                background: #00E2E7;
+                padding-top: 10%;
+                height: 45%;
+                border: 0.3vw solid black;
+                
+            }
+            #next:hover {
+                box-shadow: 0vw 0vw 1vw black;
+                font-size: 0.9em;
+            }
+                        #next{
+                            
+                
+                padding: 4%;
+                border-radius: 4%;
+                margin: 2%;
+                margin-left: 10%;
+                width: 80%;
+                font-size: 1em;
+                border: 0.3vw solid black;
+                display: inline-block;
+                margin-top: 5%;
+                box-shadow: 0vw 0vw 2vw black;
+                border: none;
+                background: #00DA54;;
+                height: 8%;
+                
+                
+            }
+            
+            
+            
+        </style>
+        
+    </head>
+    <body>
+        
+    <div id="Questions" class="question ar">
+                
+              حدث خطأ أو عطل مفاجئ..!
+              
+            </div>
+            
+            <div id="answers-bord">
+    <button id="A" class="answer">
+        
+          حدث خطأ أو عطل مفاجئ..!
+        
+        </button>
+        
+    <button id="B" class="answer">
+        
+          حدث خطأ أو عطل مفاجئ..!
+        
+    </button>
+    
+    <button id="C" class="answer">
+        
+          حدث خطأ أو عطل مفاجئ..!
+    
+    </button>
+    
+    <button id="D" class="answer">
+        
+        حدث خطأ أو عطل مفاجئ..!
+        
+    </button>
+            </div>
+            
+            <div id="t">
+            
+            <button id="next">
+                التالي
+            </button>
+            
+            
+            </div>
+            
+            
+            
+            
+        
+        <script src="public.js"></script>
+        <script>
+    // التعريفات
+    const Questions = document.getElementById('Questions');
+    const A = document.getElementById('A');
+    const B = document.getElementById('B');
+    const C = document.getElementById('C');
+    const D = document.getElementById('D');
+    const next = document.getElementById('next');
+    
+    const message = localStorage.getItem('message');
+            
+            if(message){
+                
+                if(message == "finished"){
+                    window.location.href="createImg.html";
+                }
+            }
+    
+    clearQuestionsData()
+    
+    
+    
+    // متغيرات لتخزين البيانات
+    let qTrueCount = 0 ;
+    const qData = { True: qTrueCount };
+    QnumbDataSive(qData)
+    let questionsData = [];
+    let answeredQuestionsCount = 0;
+    let usedQuestions = new Set(); // مجموعة لتخزين الأسئلة التي تم استخدامها
+
+    // دالة لتحميل الأسئلة من ملف JSON
+    function loadQuestions() {
+        fetch('Questions-json.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                questionsData = data; // تخزين الأسئلة في مصفوفة
+                getRandomQuestion(); // الحصول على سؤال عشوائي
+            })
+            .catch(error => {
+                console.error('Error fetching the questions:', error);
+            });
+    }
+
+    // دالة للحصول على سؤال عشوائي
+    function getRandomQuestion() {
+        if (answeredQuestionsCount >= questionsData.length || answeredQuestionsCount >= questionData) {
+            window.location.href="createImg.html";
+            localStorage.setItem('message', 'finished');
+            return;
+        }
+
+        let currentQuestionIndex;
+        do {
+            currentQuestionIndex = Math.floor(Math.random() * questionsData.length);
+        } while (usedQuestions.has(currentQuestionIndex)); // التأكد من عدم تكرار السؤال
+
+        usedQuestions.add(currentQuestionIndex); // إضافة السؤال إلى مجموعة الأسئلة المستخدمة
+        currentQuestion = questionsData[currentQuestionIndex];
+        displayQuestion();
+    }
+
+    // دالة لعرض السؤال والخيارات
+    function displayQuestion() {
+        Questions.textContent = currentQuestion.name; // السؤال
+        A.textContent = currentQuestion.options.A; // الخيار A
+        B.textContent = currentQuestion.options.B; // الخيار B
+        C.textContent = currentQuestion.options.C; // الخيار C
+        D.textContent = currentQuestion.options.D; // الخيار D
+        
+        next.disabled = true; // تعطيل زر "التالي" حتى اختيار إجابة
+        
+    }
+
+    // دالة للتأكد من الإجابة الصحيحة
+    function checkAnswer(selected) {
+        // تعطيل الأزرار بعد الاختيار
+        A.disabled = true;
+        B.disabled = true;
+        C.disabled = true;
+        D.disabled = true;
+
+        if (selected === currentQuestion.correctAnswer) {
+            document.getElementById(currentQuestion.correctAnswer).style.background = "#00ff00"; // أخضر
+            playSound(O); // تشغيل صوت الإجابة الصحيحة
+            qTrueCount++
+            const qData = { True: qTrueCount };
+            QnumbDataSive(qData)
+            
+            
+            
+
+const QsId = currentQuestion.QId; // الحصول على معرف السؤال الحالي
+
+// إضافة معرف السؤال إلى البيانات
+if (!Array.isArray(QsData)) {
+    QsData = [];
+} else {
+    QsData.push(QsId + '1'); 
+}
+
+
+
+// استدعاء الدالة لتخزين البيانات المحدثة
+QdataSive(QsData);
+
+            
+        } else {
+            document.getElementById(selected).style.background = "#ff0000"; // أحمر
+            playSound(X); // تشغيل صوت الإجابة الخاطئة
+            
+            
+            
+
+const QsId = currentQuestion.QId; // الحصول على معرف السؤال الحالي
+
+// إضافة معرف السؤال إلى البيانات
+if (Array.isArray(QsData)) {
+    QsData.push(QsId + '0'); 
+} else {
+    QsData = [QsId + '0']; 
+}
+
+
+
+// استدعاء الدالة لتخزين البيانات المحدثة
+QdataSive(QsData);
+
+        }
+        next.disabled = false; // تمكين زر "التالي" بعد الإجابة
+        
+    }
+
+    // دالة لتحديث عدد الأسئلة التي تم الإجابة عليها
+    
+    // إضافة أحداث النقر على الأزرار
+    A.addEventListener('click', () => checkAnswer('A'));
+    B.addEventListener('click', () => checkAnswer('B'));
+    C.addEventListener('click', () => checkAnswer('C'));
+    D.addEventListener('click', () => checkAnswer('D'));
+
+    // دالة للانتقال إلى السؤال التالي
+    next.addEventListener('click', () => {
+        
+        answeredQuestionsCount++;
+        
+        
+        
+        getRandomQuestion(); // الحصول على سؤال جديد
+        
+        A.disabled = false;
+        B.disabled = false;
+        C.disabled = false;
+        D.disabled = false;
+
+        const answers = document.querySelectorAll('.answer');
+        answers.forEach(answer => {
+            answer.style.backgroundColor = '#40C2BB'; // إعادة تعيين لون الخلفية
+        });
+        
+        
+    });
+
+    // تحميل الأسئلة عند تحميل الصفحة
+    loadQuestions();
+    
+    
+</script>
+
+
+
+    </body>
+</html>

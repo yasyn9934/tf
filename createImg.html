@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="viewport" content="width=400, user-scalable=no">
+    
+    <link rel="stylesheet" href="public.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <title>تعديل صورة وتحميلها</title>
+    <style>
+        body{
+         font-size: 4vw; 
+        }
+        canvas {
+            border: 0.5vw solid #000; /* حدود لعنصر الـ canvas */
+            margin-left: 10%;
+            margin-right: 10%;
+            font-family: 'Lateef', cursive;
+            width: 100%; /* يتناسب مع عرض الشاشة */
+            height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+            font-size: 3em;
+        }
+        #butt {
+            margin-left: 10%;
+        }
+        #bord {
+            margin: 20vw;
+            margin-top: 5%;
+            margin-left: 2%;
+        }
+        .buttons {
+            font-size: 1em;
+            width: 35%;
+            height: 5%;
+        }
+    </style>
+</head>
+<body>
+     <div id="bord"> 
+    <canvas id="myCanvas"></canvas>
+    <br>
+    <button id="butt" class="buttons" onclick="addTextOnImage()">
+        طباعة النتيجة
+    </button>
+    <button id="downloadBtn" class="buttons" style="display:none;">تحميل الصورة</button>
+    </div>
+
+    <script src="public.js"></script>
+    
+    <script>
+        let canvas = document.getElementById('myCanvas');
+        let ctx = canvas.getContext('2d');
+
+        // دالة لتحميل الصورة وإضافة النص
+        function addTextOnImage() {
+            const img = new Image();
+            img.src = '../icons/scoreBored.jpg'; // استبدل بمسار الصورة الخاص بك
+            const img2 = new Image();
+            img2.src = '../icons/Basmah.png';
+
+            img.onload = function() {
+                // تعيين دقة الـ canvas
+                const scaleFactor = window.devicePixelRatio; // للحصول على دقة مناسبة
+                canvas.width = img.width * scaleFactor; // استخدام الأبعاد الأصلية للصورة
+                canvas.height = img.height * scaleFactor; // استخدام الأبعاد الأصلية للصورة
+                ctx.scale(scaleFactor, scaleFactor); // ضبط دقة الرسم
+
+                // رسم الصورة على الـ canvas
+                ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                // إعداد النص
+                write()
+                
+                
+                // إظهار زر التحميل بعد إضافة النص
+                document.getElementById('downloadBtn').style.display = 'inline';
+            };
+            
+            img2.onload = function() {
+                ctx.globalAlpha = 0.5;
+                ctx.drawImage(img2, 210, 180, 670, 670);
+                ctx.globalAlpha = 1.0
+                ctx.drawImage(img2, -2, 830, 200, 200);
+                
+                // النص الظاهر على الصورة
+                ctx.textAlign = 'left'
+            ctx.fillStyle = '#AAAAAA';
+            ctx.font = '6.5rem Arial';
+            ctx.shadowColor = 'black'
+            ctx.shadowOffsetX = '5'
+            ctx.shadowOffsetY = '5'
+            ctx.shadowBlur = '10'
+            ctx.fillText(Alnatigah, 400, 380);
+            
+            
+            ctx.textAlign = 'center';
+            ctx.font = '7rem Arial';
+            ctx.fillStyle = '#AA0008';
+            ctx.fillText(TheResult.toFixed() + '%' , 550, 550);
+            }
+            
+            
+        }
+
+        // دالة تحميل الصورة المعدلة
+        document.getElementById('downloadBtn').onclick = function() {
+            const link = document.createElement('a');
+            link.download =  userNameData + '-'+ questionData + '.png'; // اسم الصورة عند التحميل
+            link.href = canvas.toDataURL('image/png'); // تحويل الـ canvas إلى صورة
+            link.click(); // محاكاة النقر لتحميل الصورة
+        };
+
+        // إعادة ضبط حجم canvas عند تغيير حجم النافذة
+        window.addEventListener('resize', () => {
+            if (canvas.width && canvas.height) {
+                const scaleFactor = window.devicePixelRatio;
+                canvas.width = canvas.clientWidth * scaleFactor; // تحديث العرض
+                canvas.height = canvas.clientHeight * scaleFactor; // تحديث الارتفاع
+                ctx.scale(scaleFactor, scaleFactor); // إعادة ضبط دقة الرسم
+                // إعادة رسم الصورة (يمكنك تخزين الصورة الأصلية للرسم)
+                ctx.drawImage(img, 0, 0, img.width, img.height);
+            }
+        });
+        
+        
+        
+        
+        
+        // إضافة النص على الـ canvas
+        function write(){
+            
+            // خصائص النص المحدد مسبقا
+            ctx.textAlign = 'center';
+            ctx.font = '3rem Amiri'; // حجم النص
+            ctx.fillStyle = 'red'; // لون النص
+            
+            // الكلمات المحددة مسبقا
+            
+            ctx.fillText(userName, 895, 920);
+            ctx.fillText(qNumber, 910, 1000);
+            
+            
+            
+            // خصائص نص الإستجابة للمستخدم
+            
+            ctx.textAlign = 'left'
+            ctx.font = '2.3rem Arial';
+            ctx.fillStyle = 'Darkblue';
+            
+            // نصوص الإستجابات للمستخدم
+            
+        ctx.fillText(userNameData, 520, 925);
+        ctx.fillText(questionData, 750, 1000);
+        
+        
+        ctx.shadowColor = 'black'
+            ctx.shadowOffsetX = '5'
+            ctx.shadowOffsetY = '5'
+            ctx.shadowBlur = '10'
+            ctx.textAlign = 'center'
+        ctx.fillStyle = 'cyan';
+        ctx.font = '0.9rem Arial';
+        ctx.fillText(QsData, 540, 200)
+            
+            
+        }
+        
+        
+        
+        
+    </script>
+
+</body>
+</html>

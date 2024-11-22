@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>...</title>
+        
+    </head>
+    <body>
+        <script type="text/javascript" charset="utf-8">
+            const message = localStorage.getItem('message');
+            
+            if(message){
+                
+                if(message == "finished"){
+                    window.location.href="createImg.html";
+                }else{
+                    window.location.href="page0.html"
+                }
+            }else {
+            window.location.href="page0.html"
+            }
+        </script>
+    </body>
+</html>

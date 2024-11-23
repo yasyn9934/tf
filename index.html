@@ -6,34 +6,39 @@
         
     </head>
     <body>
+        <script src="public.js"></script>
         <script type="text/javascript" charset="utf-8">
-            const message = localStorage.getItem('message');
+            
             
             
             if(userNameData){
+                const message = localStorage.getItem('message');
                if(userNameData == "@yasyn_2006" || userNameData == "@test"){
                    
-                   if(message){
                    localStorage.removeItem('message');
-                   }
-                   if(questionsData){
                    localStorage.removeItem('questionsData');
-                   }
-               }
-
-           }
-           
-           
-            if(message){
+                   window.location.href="page0.html"
+                   const message = localStorage.getItem('message');
+               }else if(message){
                 
-                if(message == "finished"){
+                if(message == "finished"  && (userNameData != "@yasyn_2006" || userNameData != "@test")){
                     window.location.href="createImg.html";
                 }else{
                     window.location.href="page0.html"
                 }
-            }else {
-            window.location.href="page0.html"
             }
+           }
+           const message = localStorage.getItem('message');
+           if(message){
+                
+                if(message == "finished" && (userNameData != "@yasyn_2006" || userNameData != "@test")){
+                    window.location.href="createImg.html";
+                }else{
+                    window.location.href="page0.html"
+                }
+            }
+           
+            
         </script>
     </body>
 </html>

@@ -32,10 +32,15 @@
             margin-left: 2%;
         }
         .buttons {
-            font-size: 1em;
-            width: 35%;
-            height: 5%;
+            font-size: 0.8em;
+            width: 30%;
+            height: 4.5%;
         }
+        #Copy {
+            margin-left: 72.5%;
+            margin-top: -10.9%;
+        }
+        
     </style>
 </head>
 <body>
@@ -46,8 +51,12 @@
         طباعة النتيجة
     </button>
     <button id="downloadBtn" class="buttons" style="display:none;">تحميل الصورة</button>
+        <button id="Copy" onclick="encryptCode();" class="buttons" style="display:none;">
+            نسخ رمز النتيجة
+        </button>
     </div>
-
+    
+    
     <script src="public.js"></script>
     
     <script>
@@ -56,6 +65,7 @@
 
         // دالة لتحميل الصورة وإضافة النص
         function addTextOnImage() {
+            
             const img = new Image();
             img.src = 'scoreBored.jpg'; // استبدل بمسار الصورة الخاص بك
             const img2 = new Image();
@@ -77,6 +87,8 @@
                 
                 // إظهار زر التحميل بعد إضافة النص
                 document.getElementById('downloadBtn').style.display = 'inline';
+                document.getElementById('Copy').style.display = 'block';
+                
             };
             
             img2.onload = function() {
@@ -169,7 +181,88 @@
         }
         
         
+        const encryptionMap = {
+        '1-0': 'ZGI, ',
+        '1-1': 'FUK, ',
+        '2-0': 'KFU, ',
+        '2-1': 'IFE, ',
+        '3-0': 'IFR, ',
+        '3-1': 'GU5, ',
+        '4-0': 'OD3, ',
+        '4-1': 'EJN, ',
+        '5-0': 'BW0, ',
+        '5-1': 'IWI, ',
+        '6-0': 'BB4, ',
+        '6-1': 'GO1, ',
+        '7-0': 'LW2, ',
+        '7-1': 'MM4, ',
+        '8-0': 'LAI, ',
+        '8-1': 'BAI, ',
+        '9-0': 'HSY, ',
+        '9-1': 'HW8, ',
+        'A-0': 'BKO, ',
+        'A-1': 'TT5, ',
+        'B-0': 'GG0, ',
+        'B-1': 'OA1, ',
+        'C-0': 'KK3, ',
+        'C-1': '02G, ',
+        'D-0': 'VIA, ',
+        'D-1': 'RNA, ',
+        'E-0': '8S4, ',
+        'E-1': 'BH6, ',
+        'F-0': 'RMN, ',
+        'F-1': 'DNA, ',
+        'F0-0': 'KKO, ',
+        'F0-1': 'DDR, ',
+        'F1-0': 'MJX, ',
+        'F1-1': 'BTV, ',
+        'F2-0': 'SS9, ',
+        'F2-1': 'LL4, ',
+        'F3-0': 'MGO0, ',
+        'F3-1': 'VVC, ',
+        'F4-0': 'MNO, ',
+        'F4-1': 'MGVE, ',
+        'F5-0': 'KP27V, ',
+        'F5-1': 'BTV3H0, ',
+        'F6-0': 'SSD69, ',
+        'F6-1': 'LXO9L4, ',
+        'F7-0': 'MGDIDO0, ',
+        'F7-1': 'VVZIOC, ',
+        'F8-0': 'MN2IVO, ',
+        'F8-1': 'MGFOBVE, '
+    };
+    
+        const decryptionMap = Object.fromEntries(
+        Object.entries(encryptionMap).map(([key, value]) => [value, key])
+    );
+    
+    
+    function encryptCode() {
         
+        
+        const input = QsData; // البيانات المدخلة
+        const parts = input; // تقسيم النص مع الاحتفاظ بالفواصل
+        const encryptedParts = parts.map(part => {
+    // تحقق من الرموز المسجلة
+        const trimmedPart = part.trim();
+        return encryptionMap[trimmedPart] || trimmedPart; // تشفير الرموز أو ترك النص كما هو
+      });
+      const encrypted = encryptedParts.join(''); // دمج الأجزاء
+
+// دالة لنسخ المتغير `encrypted` إلى الحافظة
+      function copyEncryptedText() {
+         navigator.clipboard.writeText(encrypted)
+           .then(() => {
+              console.log('تم نسخ النص المشفر إلى الحافظة!');
+           })
+           .catch(err => {
+             console.error('فشل النسخ: ', err);
+        });
+}
+
+// استدعاء دالة النسخ بعد تشفير النص
+copyEncryptedText();
+    }
         
     </script>
 

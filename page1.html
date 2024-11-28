@@ -205,11 +205,15 @@
 <script src="public.js"></script>
 
     <script type="text/javascript" charset="utf-8">
+    let qTrueCount = 0 ;
+            const qData = { True: qTrueCount };
+            QnumbDataSive(qData)
         const Non = "هذا الحقل مطلوب ويجب تعبئته*";
         const name_a = "يجب إستخدام علامة @ في بداية اسم المستخدم";
         const numb_a = " يجب ان يكون الرقم السؤال بين 10 و 20 فقط";
 
         const message = localStorage.getItem('message');
+            
             
             if(message){
                 

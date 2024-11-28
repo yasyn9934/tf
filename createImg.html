@@ -14,6 +14,23 @@
         body{
          font-size: 4vw; 
         }
+        
+        .container {
+            text-align: center;
+            margin-bottom: 25%;
+        }
+        .button {
+            padding: 1% 1%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3vw;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        
         canvas {
             border: 0.5vw solid #000; /* حدود لعنصر الـ canvas */
             margin-left: 10%;
@@ -38,7 +55,7 @@
         }
         #Copy {
             margin-left: 72.5%;
-            margin-top: -7.6%;
+            margin-top: -10.9%;
         }
         
     </style>
@@ -57,65 +74,94 @@
     </div>
     
     
+    <div class="container" id="gy">
+    <h3>هل قمت بتسجيل الإسم بشكلٍ خاطئ؟</h3>
+    <input type="text" class="center" id="userNameInput" placeholder="!أدخل إسم المستخدم الصحيح">
+    <button class="button" onclick="updateUserName()">تعديل إسم المستخدم</button>
+    <div id="updateResult" class="result"></div>
+</div>
+    
     <script src="public.js"></script>
     
     <script>
+    
+    
+    function updateUserName() {
+        const userNameInput = document.getElementById('userNameInput').value.trim();
+        if (userNameInput) {
+            // تحديث بيانات المستخدم في localStorage
+            const storedData = localStorage.getItem('userData');
+            let userData = storedData ? JSON.parse(storedData) : {};
+            userData.userName = userNameInput; // تحديث اسم المستخدم
+            localStorage.setItem('userData', JSON.stringify(userData)); // حفظ البيانات المحدثة في localStorage
+            document.getElementById('updateResult').innerText = "تم تحديث اسم المستخدم بنجاح!";
+        } else {
+            document.getElementById('updateResult').innerText = "يرجى إدخال اسم المستخدم.";
+        }
+    }
         let canvas = document.getElementById('myCanvas');
         let ctx = canvas.getContext('2d');
 
-        // دالة لتحميل الصورة وإضافة النص
-        function addTextOnImage() {
-            
-            const img = new Image();
-            img.src = 'scoreBored.jpg'; // استبدل بمسار الصورة الخاص بك
-            const img2 = new Image();
-            img2.src = 'Basmah.png';
+        // دالة لتحميل الصورة وإضافة النصlet storedData = localStorage.getItem('userData');
 
-            img.onload = function() {
-                // تعيين دقة الـ canvas
-                const scaleFactor = window.devicePixelRatio; // للحصول على دقة مناسبة
-                canvas.width = img.width * scaleFactor; // استخدام الأبعاد الأصلية للصورة
-                canvas.height = img.height * scaleFactor; // استخدام الأبعاد الأصلية للصورة
-                ctx.scale(scaleFactor, scaleFactor); // ضبط دقة الرسم
 
-                // رسم الصورة على الـ canvas
-                ctx.drawImage(img, 0, 0, img.width, img.height);
+// تحديث userNameData عند تغير البيانات في localStorage
+setInterval(() => {
+    const newStoredData = localStorage.getItem('userData');
+    const newUserNameData = JSON.parse(newStoredData)?.userName || '';
+    if (newUserNameData !== userNameData) {
+        userNameData = newUserNameData;
+    }
+}, 1000); // تحقق كل ثانية
 
-                // إعداد النص
-                write()
-                
-                
-                // إظهار زر التحميل بعد إضافة النص
-                document.getElementById('downloadBtn').style.display = 'inline';
-                document.getElementById('Copy').style.display = 'block';
-                
-            };
-            
-            img2.onload = function() {
-                ctx.globalAlpha = 0.5;
-                ctx.drawImage(img2, 210, 180, 670, 670);
-                ctx.globalAlpha = 1.0
-                ctx.drawImage(img2, -2, 830, 200, 200);
-                
-                // النص الظاهر على الصورة
-                ctx.textAlign = 'left'
-            ctx.fillStyle = '#AAAAAA';
-            ctx.font = '6.5rem Arial';
-            ctx.shadowColor = 'black'
-            ctx.shadowOffsetX = '5'
-            ctx.shadowOffsetY = '5'
-            ctx.shadowBlur = '10'
-            ctx.fillText(Alnatigah, 380, 380);
-            
-            
-            ctx.textAlign = 'center';
-            ctx.font = '7.8rem Arial';
-            ctx.fillStyle = '#AA0008';
-            ctx.fillText(TheResult.toFixed() + '%' , 550, 550);
-            }
-            
-            
-        }
+function addTextOnImage() {
+    const img = new Image();
+    img.src = 'scoreBored.jpg'; // استبدل بمسار الصورة الخاص بك
+    const img2 = new Image();
+    img2.src = 'Basmah.png';
+
+    img.onload = function() {
+        // تعيين دقة الـ canvas
+        const scaleFactor = window.devicePixelRatio; // للحصول على دقة مناسبة
+        canvas.width = img.width * scaleFactor; // استخدام الأبعاد الأصلية للصورة
+        canvas.height = img.height * scaleFactor; // استخدام الأبعاد الأصلية للصورة
+        ctx.scale(scaleFactor, scaleFactor); // ضبط دقة الرسم
+
+        // رسم الصورة على الـ canvas
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+
+        // إعداد النص
+        write();
+
+        // إظهار زر التحميل بعد إضافة النص
+        document.getElementById('downloadBtn').style.display = 'inline';
+        document.getElementById('Copy').style.display = 'block';
+    };
+
+    img2.onload = function() {
+        ctx.globalAlpha = 0.5;
+        ctx.drawImage(img2, 210, 180, 670, 670);
+        ctx.globalAlpha = 1.0;
+        ctx.drawImage(img2, -2, 830, 200, 200);
+
+        // النص الظاهر على الصورة
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#AAAAAA';
+        ctx.font = '6.5rem Arial';
+        ctx.shadowColor = 'black';
+        ctx.shadowOffsetX = '5';
+        ctx.shadowOffsetY = '5';
+        ctx.shadowBlur = '10';
+        ctx.fillText('النتيجة', 380, 380); // استخدام userNameData هنا
+
+        ctx.textAlign = 'center';
+        ctx.font = '7.8rem Arial';
+        ctx.fillStyle = '#AA0008';
+        ctx.fillText(TheResult.toFixed() + '%', 550, 550);
+    };
+}
+
+        
 
         // دالة تحميل الصورة المعدلة
         document.getElementById('downloadBtn').onclick = function() {
@@ -263,6 +309,10 @@
 // استدعاء دالة النسخ بعد تشفير النص
 copyEncryptedText();
     }
+    
+    
+    
+    
         
     </script>
 

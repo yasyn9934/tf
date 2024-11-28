@@ -10,33 +10,37 @@
         <script type="text/javascript" charset="utf-8">
             
             
-            
-            if(userNameData){
-                const message = localStorage.getItem('message');
-               if(userNameData == "@yasyn_2006" || userNameData == "@test"){
-                   
-                   localStorage.removeItem('message');
-                   localStorage.removeItem('questionsData');
-                   window.location.href="page0.html"
-                   const message = localStorage.getItem('message');
-               }else if(message){
-                
-                if(message == "finished"  && (userNameData != "@yasyn_2006" || userNameData != "@test")){
-                    window.location.href="createImg.html";
-                }else{
-                    window.location.href="page0.html"
-                }
-            }
-           }
-           const message = localStorage.getItem('message');
-           if(message){
-                
-                if(message == "finished" && (userNameData != "@yasyn_2006" || userNameData != "@test")){
-                    window.location.href="createImg.html";
-                }else{
-                    window.location.href="page0.html"
-                }
-            }
+    
+    
+
+
+
+const message = localStorage.getItem('message');
+
+// تحقق من وجود userNameData
+if (storedData) {
+    if (userNameData === "@yasyn_2006" || userNameData === "@test") {
+        localStorage.removeItem('message');
+        localStorage.removeItem('questionsData');
+        window.location.href = "page0.html";
+    } else if (message) {
+        // إذا كانت الرسالة موجودة
+        if (message === "finished") {
+            window.location.href = "createImg.html";
+        } else {
+            window.location.href = "page0.html";
+        }
+    }
+} else {
+    // في حالة عدم وجود userNameData، يمكنك اختيار عدم القيام بأي شيء أو توجيه المستخدم
+    console.log("لا توجد بيانات للمستخدم.");
+    // يمكنك توجيه المستخدم إلى صفحة معينة، إذا رغبت
+    window.location.href = "page0.html";
+}
+
+
+
+
            
             
         </script>

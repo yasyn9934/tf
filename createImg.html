@@ -24,11 +24,16 @@
             background-color: #007bff;
             color: white;
             border: none;
+            font-size: 1em;
             border-radius: 3vw;
             cursor: pointer;
         }
+        
         .button:hover {
             background-color: #0056b3;
+        }
+        #userNameInput {
+            font-size: 1em;
         }
         
         canvas {
@@ -55,7 +60,7 @@
         }
         #Copy {
             margin-left: 72.5%;
-            margin-top: -10.9%;
+            margin-top: -7.8%;
         }
         
     </style>
@@ -77,9 +82,12 @@
     <div class="container" id="gy">
     <h3>هل قمت بتسجيل الإسم بشكلٍ خاطئ؟</h3>
     <input type="text" class="center" id="userNameInput" placeholder="!أدخل إسم المستخدم الصحيح">
-    <button class="button" onclick="updateUserName()">تعديل إسم المستخدم</button>
+    <button  class="button" onclick="updateUserName()">تعديل إسم المستخدم</button>
     <div id="updateResult" class="result"></div>
 </div>
+<button id="clear" class="button" onclick="clearAllData()">
+    !مسح جميع البيانات
+    </button>
     
     <script src="public.js"></script>
     
@@ -152,7 +160,7 @@ function addTextOnImage() {
         ctx.shadowOffsetX = '5';
         ctx.shadowOffsetY = '5';
         ctx.shadowBlur = '10';
-        ctx.fillText('النتيجة', 380, 380); // استخدام userNameData هنا
+        ctx.fillText("النتيجة", 380, 380); // استخدام userNameData هنا
 
         ctx.textAlign = 'center';
         ctx.font = '7.8rem Arial';
@@ -311,8 +319,29 @@ copyEncryptedText();
     }
     
     
+    // استدعاء دالة النسخ بعد تشفير النص
+
     
     
+    const message = localStorage.getItem('message');
+
+// تحقق من وجود userNameData
+if (storedData) {
+    if (userNameData === "@yasyn_2006" || userNameData === "@test") {
+        document.getElementById('clear').style.display = 'block'
+        
+    }else {
+        document.getElementById('clear').style.display = 'none';
+        
+    }
+}
+    function clearAllData(){
+        localStorage.removeItem('message');
+        localStorage.removeItem('questionsData');
+        localStorage.removeItem('questionData');
+        localStorage.removeItem('userData');
+        window.location.href = "index.html";
+    }
         
     </script>
 

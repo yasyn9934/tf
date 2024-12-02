@@ -6,25 +6,44 @@
     <title>الصفحة مغلقة</title>
     <style>
         body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f0f0; /* لون خلفية محايد */
+            color: #333;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
-            color: #fff;
-            font-family: 'Arial', sans-serif;
             text-align: center;
-            font-size: 4vw;
+            position: relative;
+            overflow: hidden;
+        }
+        .container {
+            background: #ffffff; /* خلفية بيضاء */
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .container:hover {
+            transform: translateY(-5px); /* تأثير رفع عند التمرير */
         }
         h1 {
             font-size: 2.5em;
             margin: 0;
+            color: #ff5722; /* لون نص العنوان */
         }
         p {
             font-size: 1.2em;
-            margin: 8px 0 0;
+            margin-top: 10px;
+            color: #555;
+        }
+        .decorative-line {
+            height: 4px;
+            width: 60px;
+            background: #ff5722; /* خط زخرفي */
+            margin: 20px auto;
+            border-radius: 2px;
         }
         @media (max-width: 600px) {
             h1 {
@@ -38,8 +57,12 @@
 </head>
 <body>
 
-    <h1>الصفحة هذه مغلقة إلى أجل غير مسمى</h1>
-    <p>سيتم إعادة إنشاء الموقع من جديد قريبا</p>
+    <div class="container">
+        <h1>الصفحة مغلقة</h1>
+        <div class="decorative-line"></div>
+        <p> يتم إعادة بناء النوقع من جديد! </p>
+        <p>لن يتم ذلك في القريب العاجل نرجوا سعودة صدوركم</p>
+    </div>
 
 </body>
 </html>

@@ -1,48 +1,44 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>...</title>
-        
-    </head>
-    <body>
-        <script src="public.js"></script>
-        <script type="text/javascript" charset="utf-8">
-            
-            
-    
-    
-
-
-
-const message = localStorage.getItem('message');
-
-// تحقق من وجود userNameData
-if (storedData) {
-    if (userNameData === "@yasyn_2006" || userNameData === "@test" || userNameData === "@u_AGHCJ589194" || userNameData === "@Moslim_mam" || userNameData === "@Alba_Dark") {
-        localStorage.removeItem('message');
-        localStorage.removeItem('questionsData');
-        window.location.href = "page0.html";
-    } else if (message) {
-        // إذا كانت الرسالة موجودة
-        if (message === "finished") {
-            window.location.href = "createImg.html";
-        } else {
-            window.location.href = "page0.html";
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصفحة مغلقة</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
         }
-    }
-} else {
-    // في حالة عدم وجود userNameData، يمكنك اختيار عدم القيام بأي شيء أو توجيه المستخدم
-    console.log("لا توجد بيانات للمستخدم.");
-    // يمكنك توجيه المستخدم إلى صفحة معينة، إذا رغبت
-    window.location.href = "page0.html";
-}
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
 
+    <h1>الصفحة هذه مغلقة إلى أجل غير مسمى</h1>
+    <p>سيتم إعادة إنشاء الموقع من جديد قريبا</p>
 
-
-
-           
-            
-        </script>
-    </body>
+</body>
 </html>
